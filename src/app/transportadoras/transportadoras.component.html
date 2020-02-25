@@ -1,0 +1,137 @@
+
+
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Transportadoras</a>
+      <input class="form-control form-control-dark w-100" type="text" [(ngModel)]="searchWord" placeholder="Nome da transportadora" aria-label="Nome da transportadora">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" (click)="filtreNome()">Pesquisar</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+
+            <h4 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Filtros</span>
+              <a class="d-flex align-items-center text-muted">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h4>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link pointer" (click)="filtreModal(modal.item)">
+                  <span data-feather="file-text"></span>
+
+                  <button *ngIf="cNome" (click)="clearFiltreNome()" data-balloon="Remove &quot;close&quot; filter" type="button" data-balloon-pos="up" class="bg-transparent sans-serif link pointer br4 bg-gray7 bn white hover-bg-danger6 fw6 pv1 ph2 lh-solid mb2 mr2">
+                    "{{cNome}}" <fa name="times-circle"></fa>   </button> 
+
+                  <button *ngIf="cEstado" (click)="clearFiltreEstado()" data-balloon="Remove &quot;close&quot; filter" type="button" data-balloon-pos="up" class="bg-transparent sans-serif link pointer br4 bg-gray7 bn white hover-bg-danger6 fw6 pv1 ph2 lh-solid mb2 mr2">
+                    "{{cEstado}}" <fa name="times-circle"></fa>   </button> 
+  
+                  <button *ngIf="cCidade" (click)="clearFiltreCidade()" data-balloon="Remove &quot;close&quot; filter" type="button" data-balloon-pos="up" class="bg-transparent sans-serif link pointer br4 bg-gray7 bn white hover-bg-danger6 fw6 pv1 ph2 lh-solid mb2 mr2">
+                    "{{cCidade}}" <fa name="times-circle"></fa>   </button> 
+      
+                  <button *ngIf="cModal"  (click)="clearFiltreModal()" data-balloon="Remove &quot;close&quot; filter" type="button" data-balloon-pos="up" class="bg-transparent sans-serif link pointer br4 bg-gray7 bn white hover-bg-danger6 fw6 pv1 ph2 lh-solid mb2 mr2">
+                    "{{cModal}}" <fa name="times-circle"></fa>   </button> 
+        
+            
+                </a>
+              </li>
+            </ul>
+
+            <h4 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Localizacao (UF)</span>
+                <a class="d-flex align-items-center text-muted">
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h4>
+              <ul class="nav flex-column mb-2">
+                <li *ngFor="let uf of criterias.ufs; let i = index" [attr.data-index]="i" class="nav-item">
+                  <a class="nav-link pointer" (click)="filtreEstado(uf.item)">
+                    <span data-feather="file-text"></span>
+                    {{uf.item}} ({{uf.total}})
+                  </a>
+                </li>
+              </ul>
+  
+ 
+              <h4 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Localizacao (Municipios)</span>
+                <a class="d-flex align-items-center text-muted" >
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h4>
+              <ul class="nav flex-column mb-2">
+                <li *ngFor="let cidade of criterias.cidades; let i = index" [attr.data-index]="i"  class="nav-item">
+                  <a class="nav-link pointer" (click)="filtreCidade(cidade.item)">
+                    <span data-feather="file-text"></span>
+                    {{cidade.item}} ({{cidade.total}})
+                  </a>
+                </li>
+              </ul>
+  
+ 
+              <h4 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Modal</span>
+                <a class="d-flex align-items-center text-muted" >
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h4>
+              <ul class="nav flex-column mb-2">
+                <li *ngFor="let modal of criterias.modais; let i = index" [attr.data-index]="i" class="nav-item">
+                  <a class="nav-link pointer" (click)="filtreModal(modal.item)">
+                    <span data-feather="file-text"></span>
+                    {{modal.item}} ({{modal.total}})
+                  </a>
+                </li>
+              </ul>
+  
+                  
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Lista</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn  btn-success" [routerLink]="['saveupdate']">Cadastrar sua Transportadora</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            
+
+            <div *ngFor="let transportadora of transportadoras; let i = index" [attr.data-index]="i"  class="card w-75">
+                <div class="card-body">
+                    <div class="row" (click)="editTransportadora(transportadora)">
+
+                        <div class="col-sm-2">
+                            <img src="{{transportadora.logo}}" height="100" width="100">
+                        </div>
+ 
+                        <div class="col-sm-4">
+                            <p class="h5"><a href="#">{{transportadora.empresa}}</a></p>
+                            <p class="h6">{{transportadora.cnpj}}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="h5">{{transportadora.telefone}}</p>
+                            <p class="h6">{{transportadora.email}}</p>
+                        </div>
+                        <div *ngIf="transportadora.whatsapp" class="col-sm-3">
+                         <p class="h6"><fa name="whatsapp"></fa> Fale agora: <a href="#">{{transportadora.whatsapp}}</a></p>
+                        </div>
+                      </div>
+                </div>
+            </div>      
+
+          </div>
+        </main>
+      </div>
+    </div>
+

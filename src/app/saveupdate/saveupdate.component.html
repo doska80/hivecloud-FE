@@ -1,0 +1,94 @@
+<div class="container">  
+    <form id="transportadora" role="form" [formGroup]="addTransportadoraForm" (ngSubmit)="add()">
+      <h3>CADASTRO</h3>
+      <fieldset>
+        <input placeholder="Email" type="email" tabindex="1" class="form-control" id="email" name="email"  formControlName="email"  autofocus>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Nome" type="text" tabindex="2" class="form-control" id="nome" name="nome"  formControlName="nome" >
+      </fieldset>
+      <fieldset>
+        <input placeholder="Empresa" type="text" tabindex="3" class="form-control" id="empresa" name="empresa"  formControlName="empresa" >
+      </fieldset>
+      <fieldset>
+        <input placeholder="CNPJ" type="text" tabindex="4" class="form-control" id="cnpj" name="cnpj"  formControlName="cnpj" >
+      </fieldset>
+      <fieldset>
+        <input placeholder="Telefone" type="tel" tabindex="5" class="form-control" id="telefone" name="telefone"  formControlName="telefone" >
+      </fieldset>
+      <fieldset>
+        <input placeholder="Celular" type="tel" tabindex="6" class="form-control" id="celular" name="celular"  formControlName="celular" >
+      </fieldset>
+      <fieldset>
+        <input placeholder="Whatsapp" type="tel" tabindex="7" class="form-control" id="whatsapp" name="whatsapp"  formControlName="whatsapp" >
+      </fieldset>
+
+      <fieldset>
+        <input placeholder="CEP" type="text" tabindex="8" class="form-control" id="cep" name="cep"  formControlName="cep" > 
+      </fieldset> 
+
+      <fieldset>
+        <select placeholder="UF" class="form-control" id="uf" name="uf"  tabindex="9" formControlName="uf">
+            <option>AC</option>
+            <option>AL</option>
+            <option>AP</option>
+            <option>AM</option>
+            <option>RR</option>
+            <option>RO</option>
+            <option>PA</option>
+            <option>PB</option>
+            <option>MA</option>
+            <option>PI</option>
+            <option selected>PE</option>
+            <option>RN</option>
+            <option>CE</option>
+            <option>SE</option>
+            <option>BA</option>
+            <option>DF</option>
+            <option>TO</option>
+            <option>GO</option>
+            <option>MS</option>
+            <option>MT</option>
+            <option>SP</option>
+            <option>MG</option>
+            <option>ES</option>
+            <option>RS</option>
+            <option>SC</option>
+            <option>PR</option>
+          </select>
+      </fieldset>
+
+      <fieldset>
+        <input placeholder="Cidade" type="text" tabindex="10" class="form-control" id="cidade" name="cidade"  formControlName="cidade" > 
+      </fieldset>
+      <fieldset>
+        <select placeholder="Modal" multiple class="form-control" tabindex="11" id="exampleFormControlSelect2" id="modais" name="modais"  formControlName="modais">
+            <option value="1">Rodoviario</option>
+            <option value="2">Aerio</option>
+            <option value="3">Aguaviario</option>
+        </select>
+    </fieldset>
+      <fieldset>
+        <input placeholder="Bairro" type="text" tabindex="12" class="form-control" id="bairro" name="bairro"  formControlName="bairro" > 
+      </fieldset>
+      <fieldset>
+        <input placeholder="Rua" type="text" tabindex="13" class="form-control" id="rua" name="rua"  formControlName="rua" > 
+      </fieldset>
+      <fieldset>
+        <input placeholder="Numero" type="text" tabindex="14" class="form-control" id="numero" name="numero"  formControlName="numero" > 
+      </fieldset>
+
+      <fieldset>
+        <input placeholder="URL Logo" type="logo" tabindex="15" class="form-control" id="logo" name="logo"  formControlName="logo" >
+      </fieldset>
+
+      <fieldset>
+        <input type="checkbox" id="termo" name="termo" tabindex="16"  formControlName="termo" >  Eu aceito os termos dos servicos
+      </fieldset>
+
+      <fieldset>
+        <button name="submit" type="submit" tabindex="17" class="btn btn-primary btn-lg">Cadastrar</button>
+      </fieldset>
+
+    </form>
+  </div>
