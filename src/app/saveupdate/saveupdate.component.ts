@@ -55,6 +55,7 @@ export class SaveupdateComponent implements OnInit {
       termo: this.termo,
       uf: this.uf
     });
+    
 
     const editTransportadoraId = window.localStorage.getItem('editTransportadoraId');
     if (editTransportadoraId) {
