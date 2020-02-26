@@ -101,8 +101,13 @@ export class TransportadorasComponent implements OnInit {
 
  editTransportadora(transportadora): void {
   window.localStorage.removeItem('editTransportadoraId');
-  window.localStorage.setItem('editTransportadoraId', transportadora.id.toString());
+  window.localStorage.setItem('editTransportadoraId', transportadora.idTransportadora.toString());
   this.router.navigate(['saveupdate']);
-};
+}
+
+cadastrarTransportadora(): void {
+  window.localStorage.removeItem('editTransportadoraId');
+  this.router.navigate(['saveupdate']);
+}
 
 }

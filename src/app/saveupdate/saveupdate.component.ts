@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router';
 import { DataService } from '../services/data.service';
+import { Transportadora } from '../dto/Transportadora';
+import { Modal } from '../dto/Modal';
 
 @Component({
   selector: 'app-saveupdate',
@@ -15,7 +17,8 @@ export class SaveupdateComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private formBuilder: FormBuilder) { }
-
+    editForm = false;
+    buttonLabel = 'Cadastro';
     transportadora = {};
     addTransportadoraForm: FormGroup;
     email = new FormControl('', [Validators.required, Validators.email]);
@@ -37,7 +40,7 @@ export class SaveupdateComponent implements OnInit {
  
   ngOnInit() {
     this.addTransportadoraForm = this.formBuilder.group({
-      id: [''],
+      idTransportadora: [''],
       email: this.email,
       nome: this.nome,
       empresa: this.empresa,
@@ -56,10 +59,19 @@ export class SaveupdateComponent implements OnInit {
       uf: this.uf
     });
     const editTransportadoraId = window.localStorage.getItem('editTransportadoraId');
-    if (editTransportadoraId) {
+    if (editTransportadoraId)  {
+      this.editForm = true;
+      this.buttonLabel = 'Alterar';
       this.dataService.findOne(editTransportadoraId).subscribe(
         res => {
-          this.addTransportadoraForm.setValue(res);
+          const editTransportadora = new Transportadora(res);
+          const modais: Array<string> = [];
+
+          for (let modal of editTransportadora.modais) {
+            modais.push(modal.idModal);
+          }
+          editTransportadora.modais = modais;
+          this.addTransportadoraForm.setValue(editTransportadora);
         },
         error => {
           alert('Error');
@@ -68,14 +80,38 @@ export class SaveupdateComponent implements OnInit {
     }
   }
 
-  add() {
+  consultaCEP() {
+    let cep = this.addTransportadoraForm.value.cep;
+    console.log(cep);
 
-    if (!(this.addTransportadoraForm.dirty && this.addTransportadoraForm.valid)) {
-      alert('Error de validacao, TODO criar ValidationService '); //TODO implementar uma validacao ValidationService
-      return;
+    // Nova variável "cep" somente com dígitos.
+    cep = cep.replace(/\D/g, '');
+
+    // Verifica se campo cep possui valor informado.
+    if (cep !== '') {
+      // Expressão regular para validar o CEP.
+      const validacep = /^[0-9]{8}$/;
+
+      // Valida o formato do CEP.
+      if (validacep.test(cep)) {
+        this.dataService.getCEP(cep).subscribe(
+          res => {
+            const obj: any = JSON.parse(res._body);
+            this.addTransportadoraForm.get('rua').setValue(obj.logradouro);
+            this.addTransportadoraForm.get('bairro').setValue(obj.bairro);
+            this.addTransportadoraForm.get('uf').setValue(obj.uf);
+            this.addTransportadoraForm.get('cidade').setValue(obj.localidade);
+          },
+          error => {
+            alert('Error');
+          }
+        );
+      }
     }
+  }
 
-    this.dataService.create(this.addTransportadoraForm.value).subscribe(
+  delete() {
+    this.dataService.delete(window.localStorage.getItem('editTransportadoraId')).subscribe(
       res => {
         this.router.navigate(['']);
       },
@@ -83,6 +119,53 @@ export class SaveupdateComponent implements OnInit {
         alert('Error');
       }
     );
+  }
+
+  save() {
+
+    if (!(this.addTransportadoraForm.dirty && this.addTransportadoraForm.valid)) {
+      alert('Error de validacao, TODO criar ValidationService '); //TODO implementar uma validacao ValidationService
+      return;
+    }
+    if (this.editForm) {
+
+      const editTransportadora = new Transportadora(this.addTransportadoraForm.value);
+      const modais: Array<Modal> = [];
+
+      for (let idModal of editTransportadora.modais) {
+        modais.push(new Modal(parseInt(idModal), idModal));
+     }
+
+     editTransportadora.modais = modais;
+
+      this.dataService.update(editTransportadora).subscribe(
+        res => {
+          this.router.navigate(['']);
+        },
+        error => {
+          alert('Error');
+        }
+      );
+    } else {
+      const newTransportadora = new Transportadora(this.addTransportadoraForm.value);
+      const modais: Array<Modal> = [];
+
+      for (let idModal of newTransportadora.modais) {
+        modais.push(new Modal(parseInt(idModal), idModal));
+     }
+
+      newTransportadora.modais = modais;
+
+      this.dataService.create(newTransportadora).subscribe(
+        res => {
+          this.router.navigate(['']);
+        },
+        error => {
+          alert('Error');
+        }
+      );
+    }
+
   }
 
 }

@@ -11,6 +11,10 @@ export class DataService {
 
   constructor(private http: Http) { }
 
+  getCEP(cep): Observable<any> {
+    return this.http.get(`//viacep.com.br/ws/${cep}/json`);
+  }
+
   getAll(): Observable<any> {
     return this.http.get('http://localhost:8080/api/transportadoras').pipe(map(res => res.json()));
   }

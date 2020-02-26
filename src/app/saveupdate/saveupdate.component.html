@@ -1,5 +1,5 @@
 <div class="container">  
-    <form id="transportadora" role="form" [formGroup]="addTransportadoraForm" (ngSubmit)="add()">
+    <form id="transportadora" role="form" [formGroup]="addTransportadoraForm" (ngSubmit)="save()">
       <h3>CADASTRO</h3>
       <fieldset>
         <input placeholder="Email" type="email" tabindex="1" class="form-control" id="email" name="email"  formControlName="email"  autofocus>
@@ -22,11 +22,9 @@
       <fieldset>
         <input placeholder="Whatsapp" type="tel" tabindex="7" class="form-control" id="whatsapp" name="whatsapp"  formControlName="whatsapp" >
       </fieldset>
-
       <fieldset>
-        <input placeholder="CEP" type="text" tabindex="8" class="form-control" id="cep" name="cep"  formControlName="cep" > 
+        <input placeholder="CEP"  (focusout)="consultaCEP()" type="text" tabindex="8" class="form-control" id="cep" name="cep"  formControlName="cep" > 
       </fieldset> 
-
       <fieldset>
         <select placeholder="UF" class="form-control" id="uf" name="uf"  tabindex="9" formControlName="uf">
             <option>AC</option>
@@ -87,8 +85,10 @@
       </fieldset>
 
       <fieldset>
-        <button name="submit" type="submit" tabindex="17" class="btn btn-primary btn-lg">Cadastrar</button>
+        <button name="submit" type="submit" tabindex="17" class="btn btn-primary btn-lg">{{buttonLabel}}</button>
       </fieldset>
-
+      <fieldset *ngIf="editForm" >
+        <button name="button" type="button" tabindex="18" (click)="delete()" class="btn btn-primary btn-lg">Excluir</button>
+      </fieldset>
     </form>
   </div>

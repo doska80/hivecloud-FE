@@ -100,7 +100,7 @@
             <h1 class="h2">Lista</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
-                <button class="btn  btn-success" [routerLink]="['saveupdate']">Cadastrar sua Transportadora</button>
+                <button class="btn  btn-success" (click)="cadastrarTransportadora()">Cadastrar sua Transportadora</button>
               </div>
             </div>
           </div>
@@ -109,14 +109,14 @@
 
             <div *ngFor="let transportadora of transportadoras; let i = index" [attr.data-index]="i"  class="card w-75">
                 <div class="card-body">
-                    <div class="row" (click)="editTransportadora(transportadora)">
+                    <div class="row" >
 
                         <div class="col-sm-2">
                             <img src="{{transportadora.logo}}" height="100" width="100">
                         </div>
  
                         <div class="col-sm-4">
-                            <p class="h5"><a href="#">{{transportadora.empresa}}</a></p>
+                            <p class="h5"><a  (click)="editTransportadora(transportadora)">{{transportadora.empresa}}</a></p>
                             <p class="h6">{{transportadora.cnpj}}</p>
                         </div>
                         <div class="col-sm-3">
