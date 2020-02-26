@@ -33,7 +33,7 @@ export class DataService {
   }
 
   delete(id): Observable<any> {
-    return this.http.delete('http://localhost:8080/api/transportadoras/' + id).pipe(map(res => res.json()));
+    return this.http.delete('http://localhost:8080/api/transportadoras/' + id);
   }
 
   create(transportadora): Observable<any> {
