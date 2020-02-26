@@ -2,6 +2,11 @@
 # Transportadora
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+Tambem foi usando rxjs para as chamadas REST.
+
+### OBS do Author:
+
+Evidentimente em um sistema real, o codigo teria uma forma mais elegante de tratamento de error, mas devido a falta de tempo eu nao pude implementar, meu objetivo foi fazer algo simples para demostrar meu conhecimento em angular.
 
 ## Development server
 
