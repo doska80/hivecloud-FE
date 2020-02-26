@@ -111,6 +111,7 @@ export class SaveupdateComponent implements OnInit {
   }
 
   delete() {
+    if(confirm("Voce tem certeza? ")) {
     this.dataService.delete(window.localStorage.getItem('editTransportadoraId')).subscribe(
       res => {
         this.router.navigate(['']);
@@ -119,6 +120,7 @@ export class SaveupdateComponent implements OnInit {
         alert('Error');
       }
     );
+    }
   }
 
   save() {
